@@ -6,6 +6,7 @@
     //var dataURL = '/data/canada-universities.json';
     var dataURL = '/partner-search/country-json/Canada';
     var states = [];
+    document.getElementById('canada-map-container').style.opacity = 0;
     var universities = new Vue({
         el: "#map-wrapper",
         data: {
@@ -15,6 +16,7 @@
         },
         methods: {
             fetchData: function () {
+                
                 this.$http.get(dataURL).then(function (response) {
                     // Success
                     this.universities = response.data;                
@@ -25,7 +27,9 @@
                         //states.push(arr_json[key]['stateName']+","+arr_json[key]['stateId']+","+20);
                         console.log("adding states: "+arr_json[key]['stateName']+",size: " +arr_json[key]['universities'].length);
                     }
-                    getColorState();
+                    updateDatamapColor();
+                    document.getElementById('canada-map-container').style.opacity = 1;
+                    //getColorState();
                 }, function (response) {
                     console.log('fetchdata() fail');
                     fetchData();
@@ -49,9 +53,11 @@
         }
     });
 
-    universities.fetchData();
+    setTimeout(function(){
+        universities.fetchData();
+    },2000);
 
-    /*function updateDatamapColor(){
+    function updateDatamapColor(){
         var stateUnits = document.getElementsByClassName('datamaps-subunit');
         for(var i = 0; i<stateUnits.length; i++){
             var data_info = stateUnits[i].getAttribute("data-info");
@@ -60,9 +66,9 @@
             var stateName = data_info[1].split(":");
             stateUnits[i].style.fill = getColorState(stateName[1]);
         }
-    }*/
+    }
 
-    /*function getColorState(stateName){
+    function getColorState(stateName){
         stateName = stateName.slice(1,stateName.length-1);
         for(var i = 0; i<states.length; i++){
             var data = states[i].split(",");
@@ -74,23 +80,44 @@
                 }
         }
 
-    }*/
+    }
 
-    function getColorState(){
-        var data = [];
+   /* function getColorState(){
+        //var json_data = [];
+        
         for(var i = 0; i<states.length; i++){
-                var data = states[i].split(",");          
-                var color = getColor(data[1]);
+                var data = states[i].split(",");
+            for(var j=0; j<Object.keys(canadaMap.data).length; j++){
+                console.log(data[0]+'state %o',canadaMap.data[j]);
+                if(data[0]==canadaMap.data[j].state){
+                    var color = getColor(data[1]);
+                    updateColor(canadaMap.data[j].state,color);
+                }
+            }
+                /*var color = getColor(data[1]);
                 console.log('state %o',states);
                 var stateName = data[0];
-                var map = {stateName:{ "fillKey": color,"state":stateName, "numberOfUniversities": data[1]}};
-                console.log('object %o',map);
-                data.push(map);        
-        }
-        console.log('datamap %o',data);
-        canadaMap.updateData(data);
-    }
-     function getColor(size){
+                var map={ "fillKey": color,"state":stateName, "numberOfUniversities": data[1]};
+                console.log('map data %o',map);
+                json_data[stateName]=map;   
+                var sample = {};
+                sample[stateName] = color;
+                canadaMap.updateChoropleth(sample);  */      
+                
+        //}
+        //canadaMap.updateChoropleth({"British Columbia":{fillKey:"c4",numberOfUniversities:"94",state:"British Columbia"}});
+        //console.log('datamap %o',data);
+        //canadaMap.updateData(data);
+        //canadaMap.data = json_data
+        //console.log('datamap %o',canadaMap.data);
+    //}
+        
+/*   function updateColor(statename,color){
+        var sample = {};
+        sample[stateName] = color;
+        canadaMap.updateChoropleth(sample);
+    }*/
+   /*  function getColor(size){
             if(size==0){
                 return "c0";
             }else if(size>=1&&size<=20){
@@ -109,8 +136,8 @@
                 return "c7";
             }
 
-        }
-   /* function getColor(size){
+        }*/
+    function getColor(size){
             if(size==0){
                 return "rgba(225,225, 225, 1)";
             }else if(size>=1&&size<=20){
@@ -129,4 +156,4 @@
                 return "#FFCBFD";
             }
 
-        }*/
+        }

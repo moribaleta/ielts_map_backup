@@ -41,7 +41,7 @@ var canadaMap;
 
                         output = elem[1];
                     }
-                }            
+                }if(output>0)            
                 return '<div class="hoverinfo">' + geography.properties.name +
                 ', Number of Universities: ' + output + ' '
             }
@@ -78,52 +78,52 @@ var canadaMap;
             "Ontario":{
                 "fillKey": "c0",
                 "state":"Ontario",
-                "numberOfUniversities": 123
+                "numberOfUniversities": 0
             },
             "Alberta":{
                 "fillKey": "c0",
                 "state":"Alberta",
-                "numberOfUniversities": 37
+                "numberOfUniversities": 0
             },
             "British Columbia":{
                 "fillKey": "c0",
                 "state":"British Columbia",
-                "numberOfUniversities": 74
+                "numberOfUniversities": 0
             },
             "Manitoba":{
                 "fillKey": "c0",
                 "state":"Manitoba",
-                "numberOfUniversities": 14
+                "numberOfUniversities": 0
             },
             "Yukon":{
                 "fillKey": "c0",
                 "state":"Yukon",
-                "numberOfUniversities": 1
+                "numberOfUniversities": 0
             },
             "Newfoundland and Labrador":{
                 "fillKey": "c0",
                 "state":"Newfoundland and Labrador",
-                "numberOfUniversities": 4
+                "numberOfUniversities": 0
             },
             "New Brunswick": {
                 "fillKey": "c0",
                 "state":"New Brunswick",
-                "numberOfUniversities": 8
+                "numberOfUniversities": 0
             },
             "Nova Scotia": {
                 "fillKey": "c0",
                 "state":"Nova Scotia",
-                "numberOfUniversities": 19
+                "numberOfUniversities": 0
             },
             "Prince Edward Island": {
                 "fillKey": "c0",
                 "state": "Prince Edward Island",
-                "numberOfUniversities": 2
+                "numberOfUniversities": 0
             },
             "Saskatchewan": {
                 "fillKey": "c0",
                 "state": "Saskatchewan",               
-                "numberOfUniversities": 20
+                "numberOfUniversities": 0
             }
         },
 
@@ -142,7 +142,7 @@ var canadaMap;
                     stateNameParser.value = geography.properties['name'];
                 }
             });
-            console.log("Object o", datamap);
+            console.log("Object o", this.data);
         }
     });
 
